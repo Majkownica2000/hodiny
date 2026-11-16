@@ -1,0 +1,254 @@
+:root {
+  --size: min(72vmin, 360px);
+  --radius: calc(var(--size) / 2);
+  --glass-bg: rgba(255, 255, 255, 0.10);
+  --glass-border: rgba(255, 255, 255, 0.28);
+  --glass-highlight: rgba(255, 255, 255, 0.45);
+  --accent: #7dd3fc;
+  --accent-2: #c084fc;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: "Manrope", system-ui, -apple-system, sans-serif;
+  color: #f1f5f9;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background: linear-gradient(135deg, #0b1026 0%, #1a1040 40%, #0f1f4a 100%);
+}
+
+/* ---------- Liquid background blobs ---------- */
+.bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  filter: blur(0px);
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.55;
+  mix-blend-mode: screen;
+  animation: float 18s ease-in-out infinite;
+  will-change: transform;
+}
+
+.blob-1 {
+  width: 55vmax; height: 55vmax;
+  background: radial-gradient(circle, #67e8f9 0%, #0891b2 40%, transparent 70%);
+  top: -20vmax; left: -15vmax;
+  animation-duration: 22s;
+}
+.blob-2 {
+  width: 50vmax; height: 50vmax;
+  background: radial-gradient(circle, #a78bfa 0%, #6d28d9 40%, transparent 70%);
+  bottom: -18vmax; right: -12vmax;
+  animation-duration: 26s;
+  animation-delay: -6s;
+}
+.blob-3 {
+  width: 40vmax; height: 40vmax;
+  background: radial-gradient(circle, #fb7185 0%, #e11d48 40%, transparent 70%);
+  top: 30vmax; left: 40vmax;
+  animation-duration: 20s;
+  animation-delay: -10s;
+  opacity: 0.35;
+}
+.blob-4 {
+  width: 35vmax; height: 35vmax;
+  background: radial-gradient(circle, #fbbf24 0%, #d97706 40%, transparent 70%);
+  top: 10vmax; right: 25vmax;
+  animation-duration: 24s;
+  animation-delay: -14s;
+  opacity: 0.3;
+}
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(6vmax, -4vmax) scale(1.08); }
+  66% { transform: translate(-5vmax, 5vmax) scale(0.94); }
+}
+
+/* ---------- Stage & card ---------- */
+.stage {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.glass-card {
+  position: relative;
+  width: min(92vw, 460px);
+  padding: 36px 28px 32px;
+  border-radius: 32px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.06) 100%);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(24px) saturate(170%);
+  -webkit-backdrop-filter: blur(24px) saturate(170%);
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+  text-align: center;
+  animation: card-in 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes card-in {
+  from { opacity: 0; transform: translateY(24px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.title {
+  margin: 0 0 4px;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 1.6rem;
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: -0.01em;
+  color: #f8fafc;
+  font-variation-settings: "opsz" 144;
+}
+
+.subtitle {
+  margin: 0 0 24px;
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: rgba(241, 245, 249, 0.62);
+  letter-spacing: 0.02em;
+}
+
+/* ---------- Clock ---------- */
+.clock {
+  margin: 0 auto 18px;
+  width: var(--size);
+  height: var(--size);
+  position: relative;
+}
+
+.clock-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 25%, rgba(255,255,255,0.22) 0%, transparent 45%),
+    linear-gradient(160deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.03) 100%);
+  border: 1px solid rgba(255,255,255,0.32);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  box-shadow:
+    0 12px 40px rgba(0,0,0,0.4),
+    inset 0 2px 0 rgba(255,255,255,0.35),
+    inset 0 -2px 8px rgba(0,0,0,0.25);
+  overflow: hidden;
+}
+
+.gloss {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: linear-gradient(125deg, rgba(255,255,255,0.25) 0%, transparent 40%, transparent 60%, rgba(255,255,255,0.08) 100%);
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+/* markers */
+.marker {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 2px;
+  height: 16px;
+  margin-left: -1px;
+  transform-origin: 50% var(--radius);
+  background: rgba(255,255,255,0.45);
+  border-radius: 2px;
+}
+.marker.major {
+  width: 3px;
+  height: 22px;
+  margin-left: -1.5px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.5) 100%);
+  box-shadow: 0 0 8px rgba(125,211,252,0.6);
+}
+
+/* hands */
+.hand {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  transform-origin: 50% 100%;
+  border-radius: 6px;
+  will-change: transform;
+}
+
+.hour-hand {
+  width: 7px;
+  height: 26%;
+  margin-left: -3.5px;
+  background: linear-gradient(180deg, #e2e8f0 0%, #94a3b8 100%);
+  box-shadow: 0 0 10px rgba(255,255,255,0.35);
+  z-index: 2;
+}
+
+.minute-hand {
+  width: 5px;
+  height: 36%;
+  margin-left: -2.5px;
+  background: linear-gradient(180deg, #f8fafc 0%, #cbd5e1 100%);
+  box-shadow: 0 0 12px rgba(125,211,252,0.5);
+  z-index: 3;
+}
+
+.second-hand {
+  width: 2px;
+  height: 42%;
+  margin-left: -1px;
+  background: linear-gradient(180deg, #f472b6 0%, #ec4899 100%);
+  box-shadow: 0 0 14px rgba(244,114,182,0.7);
+  z-index: 4;
+}
+
+.center-dot {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 14px; height: 14px;
+  margin: -7px 0 0 -7px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff 0%, #7dd3fc 60%, #7c3aed 100%);
+  box-shadow: 0 0 16px rgba(125,211,252,0.8);
+  z-index: 5;
+}
+
+.tz {
+  margin: 0;
+  font-size: 0.75rem;
+  color: rgba(241,245,249,0.5);
+  letter-spacing: 0.05em;
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .blob { animation: none; }
+  .glass-card { animation: none; }
+  .second-hand { transition: none; }
+}
+
+/* ---------- Small screens ---------- */
+@media (max-width: 420px) {
+  .glass-card { padding: 28px 18px 24px; border-radius: 24px; }
+  .title { font-size: 1.25rem; }
+}
